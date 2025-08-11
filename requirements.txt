@@ -1,0 +1,10 @@
+pandas
+numpy
+scikit-learn
+tensorflow
+streamlit
+openpyxl
+plotly
+ollama
+fpdf
+feedparser

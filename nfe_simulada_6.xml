@@ -1,0 +1,157 @@
+<!--
+  Arquivo XML de NF-e de exemplo / simulação.
+  ATENÇÃO: este é um arquivo fictício para testes e demonstração, sem validade fiscal.
+  Não use com dados reais ou para fins oficiais.
+-->
+<nfeProc versao="4.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+  <NFe>
+    <infNFe Id="NFe00000000000000000000000000000000000000000054325" versao="4.00">
+      <ide>
+        <cUF>35</cUF> <!-- São Paulo -->
+        <cNF>87654325</cNF>
+        <natOp>Venda de mercadoria</natOp>
+        <mod>55</mod>
+        <serie>2</serie>
+        <nNF>54325</nNF>
+        <dhEmi>2025-08-09T15:00:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+        <idDest>1</idDest>
+        <cMunFG>3550308</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>1</cDV>
+        <tpAmb>2</tpAmb> <!-- ambiente de homologação/teste -->
+        <finNFe>1</finNFe>
+        <indFinal>1</indFinal>
+        <indPres>1</indPres>
+        <procEmi>0</procEmi>
+      </ide>
+
+      <emit>
+        <CNPJ>98765432000109</CNPJ>
+        <xNome>Empresa Teste LTDA</xNome>
+        <enderEmit>
+          <xLgr>Rua Teste</xLgr>
+          <nro>200</nro>
+          <xBairro>Centro</xBairro>
+          <cMun>3550308</cMun>
+          <xMun>Sao Paulo</xMun>
+          <UF>SP</UF>
+          <CEP>01010000</CEP>
+          <cPais>1058</cPais>
+          <xPais>Brasil</xPais>
+          <fone>11987654321</fone>
+        </enderEmit>
+        <IE>987654321098</IE>
+        <CRT>3</CRT>
+      </emit>
+
+      <dest>
+        <CNPJ>12345678000190</CNPJ>
+        <xNome>Cliente Exemplo SA</xNome>
+        <enderDest>
+          <xLgr>Av. Exemplo</xLgr>
+          <nro>300</nro>
+          <xBairro>Bairro Exemplo</xBairro>
+          <cMun>3304557</cMun>
+          <xMun>Rio de Janeiro</xMun>
+          <UF>RJ</UF>
+          <CEP>20010000</CEP>
+          <cPais>1058</cPais>
+          <xPais>Brasil</xPais>
+          <fone>2123456789</fone>
+        </enderDest>
+        <indIEDest>1</indIEDest>
+      </dest>
+
+      <det nItem="1">
+        <prod>
+          <cProd>002</cProd>
+          <cEAN>SEMGTIN</cEAN>
+          <xProd>Produto Exemplo</xProd>
+          <NCM>88888888</NCM>
+          <CFOP>5101</CFOP>
+          <uCom>UN</uCom>
+          <qCom>3.0000</qCom>
+          <vUnCom>83.33</vUnCom>
+          <vProd>250.00</vProd>
+          <cEANTrib>SEMGTIN</cEANTrib>
+          <uTrib>UN</uTrib>
+          <qTrib>3.0000</qTrib>
+          <vUnTrib>83.33</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS00>
+              <orig>0</orig>
+              <CST>00</CST>
+              <modBC>0</modBC>
+              <vBC>250.00</vBC>
+              <pICMS>18.00</pICMS>
+              <vICMS>45.00</vICMS>
+            </ICMS00>
+          </ICMS>
+          <PIS>
+            <PISAliq>
+              <CST>01</CST>
+              <vBC>250.00</vBC>
+              <pPIS>1.65</pPIS>
+              <vPIS>4.13</vPIS>
+            </PISAliq>
+          </PIS>
+          <COFINS>
+            <COFINSAliq>
+              <CST>01</CST>
+              <vBC>250.00</vBC>
+              <pCOFINS>7.60</pCOFINS>
+              <vCOFINS>19.00</vCOFINS>
+            </COFINSAliq>
+          </COFINS>
+        </imposto>
+      </det>
+
+      <total>
+        <ICMSTot>
+          <vBC>250.00</vBC>
+          <vICMS>45.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vFCPUFDest>0.00</vFCPUFDest>
+          <vICMSUFDest>0.00</vICMSUFDest>
+          <vICMSUFRem>0.00</vICMSUFRem>
+          <vProd>250.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vSeg>0.00</vSeg>
+          <vDesc>0.00</vDesc>
+          <vII>0.00</vII>
+          <vIPI>0.00</vIPI>
+          <vPIS>4.13</vPIS>
+          <vCOFINS>19.00</vCOFINS>
+          <vOutro>0.00</vOutro>
+          <vNF>318.13</vNF>
+        </ICMSTot>
+      </total>
+
+      <transp>
+        <modFrete>9</modFrete>
+      </transp>
+
+      <infAdic>
+        <infCpl>Documento em ambiente de homologação. Dados fictícios.</infCpl>
+      </infAdic>
+
+    </infNFe>
+  </NFe>
+  <protNFe>
+    <infProt>
+      <tpAmb>2</tpAmb>
+      <verAplic>3.10</verAplic>
+      <chNFe>NFe00000000000000000000000000000000000000000054325</chNFe>
+      <dhRecbto>2025-08-09T15:01:00-03:00</dhRecbto>
+      <nProt>1350000000000054325</nProt>
+      <digVal></digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+    </infProt>
+  </protNFe>
+</nfeProc>
