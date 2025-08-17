@@ -28,23 +28,46 @@ st.set_page_config(layout="wide", page_title="Plataforma de Agentes Fiscais 2.0"
 # MÓDULO 1: INGESTÃO DE DADOS
 # ==============================================================================
 def parse_nfe_xml(xml_file):
-    """Lê um arquivo XML de NF-e e extrai informações chave."""
+    """Lê um arquivo XML de NF-e e extrai informações chave, incluindo dados para análise tributária."""
     try:
         tree = ET.parse(xml_file)
         root = tree.getroot()
         ns = {'nfe': 'http://www.portalfiscal.inf.br/nfe'}
+        
+        # Encontrar os nós principais
         ide = root.find('.//nfe:ide', ns)
-        emit = root.find('.//nfe:emit', ns)
-        dest = root.find('.//nfe:dest', ns)
+        emit = root.find('.//nfe:emit/nfe:enderEmit', ns)
+        dest = root.find('.//nfe:dest/nfe:enderDest', ns)
         total = root.find('.//nfe:ICMSTot', ns)
+        emit_info = root.find('.//nfe:emit', ns)
+        dest_info = root.find('.//nfe:dest', ns)
+
+        # Helper para extrair texto de um nó
+        def find_text(node, path, default=None):
+            if node is None: return default
+            found_node = node.find(path, ns)
+            return found_node.text if found_node is not None else default
+
+        # Helper para extrair float de um nó
+        def find_float(node, path, default=0.0):
+            text = find_text(node, path)
+            return float(text) if text is not None else default
+
         data = {
-            'data_emissao': ide.find('nfe:dhEmi', ns).text[:10] if ide is not None and ide.find('nfe:dhEmi', ns) is not None else None,
-            'numero_nf': ide.find('nfe:nNF', ns).text if ide is not None and ide.find('nfe:nNF', ns) is not None else None,
-            'cnpj_emitente': emit.find('nfe:CNPJ', ns).text if emit is not None and emit.find('nfe:CNPJ', ns) is not None else None,
-            'nome_emitente': emit.find('nfe:xNome', ns).text if emit is not None and emit.find('nfe:xNome', ns) is not None else None,
-            'cnpj_destinatario': dest.find('nfe:CNPJ', ns).text if dest is not None and dest.find('nfe:CNPJ', ns) is not None else None,
-            'valor_total_nf': float(total.find('nfe:vNF', ns).text) if total is not None and total.find('nfe:vNF', ns) is not None else 0.0,
-            'valor_icms': float(total.find('nfe:vICMS', ns).text) if total is not None and total.find('nfe:vICMS', ns) is not None else 0.0,
+            'data_emissao': find_text(ide, 'nfe:dhEmi', '')[:10],
+            'numero_nf': find_text(ide, 'nfe:nNF'),
+            'cnpj_emitente': find_text(emit_info, 'nfe:CNPJ'),
+            'nome_emitente': find_text(emit_info, 'nfe:xNome'),
+            'uf_origem': find_text(emit, 'nfe:UF'),
+            'cnpj_destinatario': find_text(dest_info, 'nfe:CNPJ'),
+            'uf_destino': find_text(dest, 'nfe:UF'),
+            
+            # Valores totais da NF
+            'valor_total_nf': find_float(total, 'nfe:vNF'),
+            'valor_icms': find_float(total, 'nfe:vICMS'),
+            'valor_icms_st': find_float(total, 'nfe:vICMSST'),
+            'valor_fcp': find_float(total, 'nfe:vFCP'),
+            'valor_difal': find_float(total, 'nfe:vICMSUFDest'),
         }
         return data
     except Exception as e:
